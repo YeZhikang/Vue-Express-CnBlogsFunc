@@ -1,0 +1,90 @@
+h3.primary{
+  font-size: 24px;
+  padding-left: 7px;
+  border-left: 6px solid darkcyan;
+  margin: 35px 35px 20px 35px
+}
+
+h4.primary{
+  font-size: 16px;
+  padding-left: 7px;
+  border-left: 6px solid darkcyan;
+  margin: 10px 35px;
+}
+
+h3.warning{
+  font-size: 24px;
+  padding-left: 7px;
+  border-left: 6px solid #bb6100;
+  margin: 35px 35px 20px 35px
+}
+
+h5.mainTh{
+  font-size:14px;
+  border-left: 6px solid #bb6100;
+  padding-left: 7px;
+}
+
+h4.warning{
+  font-size: 16px;
+  padding-left: 7px;
+  border-left: 6px solid #bb6100;
+  margin: 10px 35px;
+}
+
+h3.classic{
+  font-size: 24px;
+  padding-left: 7px;
+  border-left: 6px solid #8c939d;
+  margin: 0;
+}
+
+h4.classic{
+  font-size: 16px;
+  padding-left: 7px;
+  border-left: 6px solid #bac3ce;
+  margin: 10px 0
+}
+
+ul{
+  list-style: none;
+  padding-left: 0;
+}
+
+a{
+  text-decoration: none;
+}
+
+a.normal{
+  font-family: "Microsoft Sans Serif";
+  font-size: 14px;
+}
+
+a.normal:link{
+  color: #636363;
+}
+
+a.normal:visited {
+  color: #636363;
+}
+
+a.normal:hover{
+  color: #2b6695;
+}
+
+a.normal:active{
+  color: #2b6695;
+}
+
+.normal{
+  padding-left: 6px;
+  margin-left: 7px;
+  border-left: 3px solid #dae0f0;
+  margin-top: 5px;
+}
+
+h5.classic{
+  padding-left: 8px;
+  border-left: 4px solid #5b83a9;
+}
+
