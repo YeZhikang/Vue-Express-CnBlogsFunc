@@ -5,7 +5,7 @@
 ## 评委请看这里
 - 👉 组别：G13 
 - 👉 技术栈 (前后端分离) ：
-  - 前端：Vue + Vue-CLI + Vue-Router / HTML5 + CSS3 + JavaScript (ES6)
+  - 前端：Vue + Vue-CLI + Vue-Router + Element-UI / HTML5 + CSS3 + JavaScript (ES6)
   - 后端：Express (Node.js) + MongoDB
 - 👉 代码展示
   - 后端代码：
