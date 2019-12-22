@@ -17,7 +17,6 @@
         <div class="navbox">
           <div class="nav-head">
             <h5>导航</h5>
-
           </div>
           <ul>
             <li><router-link to="/" class="settings">博客园</router-link></li>

@@ -87,5 +87,14 @@
 </script>
 
 <style scoped>
-
+  >>>pre{
+     background: rgb(242,242,242);
+     padding: 5px 5px;
+     border-radius: 5px;
+   }
+  >>>code{
+    background: rgb(242,242,242);
+    padding: 5px 5px;
+    border-radius: 5px;
+  }
 </style>

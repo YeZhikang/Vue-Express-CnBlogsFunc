@@ -83,6 +83,7 @@
         <div style="display: flex">
           <el-avatar size="large" :src="'http://139.155.76.66:3000/'+userName+'_images.png'" style="margin: 19.92px 10px"></el-avatar>
           <h2 style="color: #787878">{{userName}}</h2>
+          <el-button type="text"><router-link to="/userChart"  style="margin-left: 200px;color: darkcyan;">查看数据</router-link></el-button>
         </div>
         <div style="margin: 20px 6px;padding:20px 0 ;border-top: 1px dashed #636363;" >
           <el-alert
@@ -162,7 +163,8 @@
                     }
                 ],
                 questions:[],
-                drawer:false
+                drawer:false,
+                blogs:[]
             }
         },
         created(){
@@ -203,7 +205,6 @@
                     let data = res.data.msg;
                     this.blogs = data;
                     console.log(this.blogs)
-                    console.log(this.length);
                 }).catch(error => {
                     console.log(error)
                 })

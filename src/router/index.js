@@ -56,6 +56,8 @@ import Find from "../components/Flash_Group_Directory/Find";
 import newIndex from "../components/Index/newIndex";
 import blogIndex from "../components/Blog/blogIndex";
 import NotFound from "../components/NotFound";
+import UserActiveShow from "../components/Index/UserActiveShow";
+import AdminController from "../components/AdminController";
 Vue.use(Router);
 
 const router = new Router({
@@ -379,6 +381,14 @@ const router = new Router({
       path:'/jd/:id',
       component:JD
     },
+    {
+      path:'/userChart',
+      component:UserActiveShow
+    },
+    {
+      path:'/admin',
+      component:AdminController
+    }
   ]
 }
 );

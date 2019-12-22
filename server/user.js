@@ -48,6 +48,12 @@ const questionSchema = mongoose.Schema({
     URL:String
 });
 
+const adminSchema = mongoose.Schema({
+    userName:String,
+    time:String,
+    from:String
+});
+
 const hcSchema = mongoose.Schema({
     title:String,
     author:String,
@@ -198,6 +204,7 @@ let group = mongoose.model('group',groupSchema);
 let topic = mongoose.model('topic',topicSchema);
 let hc = mongoose.model("hc",hcSchema);
 let jd = mongoose.model("jd",jdSchema);
+let admin = mongoose.model("admin",adminSchema);
 
 var transporter = nodemailer.createTransport({
   host: 'smtp.qq.com',
@@ -1108,7 +1115,111 @@ router.post('/getcommandtopics',jsonParser,(req,res)=>{
       data:docs
     })
   })
+});
+
+router.get('/isAdmin',jsonParser,(req,res) => {
+  let userName = req.cookies.userName;
+  admin.find({
+    userName:userName
+  },(error,docs) => {
+    if(error){
+      console.log(error)
+    }else{
+      if(docs.length === 0 && userName !== "Admin"){
+        res.json({
+          isAdmin:false,
+          userName:userName
+        })
+      }else{
+        res.json({
+          isAdmin:true,
+          userName:userName
+        })
+      }
+    }
+  })
+});
+
+router.get("/getAllActives",jsonParser,(req,res) => {
+    let blogs = [];
+    let minds = [];
+    let questions = [];
+    let comments = [];
+    let hcs = [];
+    let jds = [];
+    let users = [];
+    let topics = [];
+    blog.find((error,docs) => {
+      if(error){
+        console.log(error)
+      }else{
+        blogs = docs;
+        mind.find((error,docs)=>{
+          if(error){
+            console.log(error)
+          }else{
+              minds = docs;
+              question.find((error,docs) => {
+                if(error){
+                  console.log(error)
+                }else{
+                  questions = docs
+                  comment.find((error,docs)=>{
+                    if(error){
+                      console.log(error)
+                    }else{
+                      comments = docs;
+                      hc.find((error,docs)=>{
+                        if(error){
+                          console.log(error)
+                        }else{
+                          hcs = docs
+                          jd.find((error,docs) => {
+                            if(error){
+                              console.log(error)
+                            }else{
+                              jds = docs
+                              user.find((error,docs) => {
+                                if(error){
+                                  console.log(error)
+                                }else{
+                                  users = docs
+                                  topic.find((error,docs)=>{
+                                    if(error){
+                                      console.log(error)
+                                    }else{
+                                      topics = docs
+                                      res.json({
+                                        allData:{
+                                          blogs:blogs,
+                                          minds:minds,
+                                          questions:questions,
+                                          comments:comments,
+                                          hcs:hcs,
+                                          jds:jds,
+                                          users:users,
+                                          topics:topics
+                                        }
+                                      })
+                                    }
+                                  })
+                                }
+                              })
+                            }
+                          })
+                        }
+                      })
+                    }
+                  })
+                }
+              })
+          }
+        })
+      }
+    })
 })
+
+
 
 router.post('/sendtopic',jsonParser,(req,res) => {
     let title = req.body.title;
@@ -1361,6 +1472,188 @@ router.post('/searchgroupmember',jsonParser,(req,res)=>{
     }
   })
 });
+
+router.get('/getHistoryData',jsonParser,(req,res) => {
+  console.log("haha")
+  let userName = req.cookies.userName;
+  let totalCount = [];
+  let ideData = [];
+  let behaviorData = [];
+  let fansCount = 0;
+  let followedCount = 0;
+  let dateCount = [];
+  let activeNumber = 0;
+  let groupMember = 0;
+  blog.find({
+      author:userName
+    },(error,docs) => {
+    if(error){
+      console.log(error)
+    }else {
+      totalCount.push(docs)
+      behaviorData.push({
+        name:"发博",
+        value:docs.length
+      })
+      comment.find({
+        author:userName
+      },(error,docs) => {
+        if(error){
+          console.log(error)
+        }else{
+          totalCount.push(docs);
+          behaviorData.push({
+            name:"回答",
+            value:docs.length
+          })
+          mail.find({
+            from:userName
+          },(error,docs) => {
+            if(error){
+              console.log(error)
+            }else{
+              totalCount.push(docs);
+              behaviorData.push({
+                name:"邮件",
+                value:docs.length
+              })
+              mind.find({
+                author:userName,
+              },(error,docs) => {
+                if(error){
+                  console.log(error)
+                }else{
+                  behaviorData.push({
+                    name:"想法",
+                    value:docs.length
+                  })
+                  question.find({
+                    author:userName
+                  },(error,docs) => {
+                    if(error){
+                      console.log(error)
+                    }else{
+                      totalCount.push(docs);
+                      behaviorData.push({
+                        name:"问题",
+                        value:docs.length
+                      })
+                      group.find({
+                        author:userName
+                      },(error,docs) => {
+                        if(error){
+                          console.log(error)
+                        }else{
+                          ideData.push({
+                            name:"组长",
+                            value:docs.length
+                          });
+                          docs.forEach(item => {
+                            groupMember += item.member.length
+                          })
+                          group.find({
+                            member:{$in:[userName]}
+                          },(error,docs) => {
+                            if(error){
+                              console.log(error)
+                            }else{
+                              ideData.push({
+                                name:"成员",
+                                value:docs.length
+                              });
+                              docs.forEach(item => {
+                                groupMember += item.member.length
+                              });
+                              relation.find({
+                                $or:[
+                                  { fan:userName },
+                                  { followed:userName }
+                                ]
+                              },(error,docs) => {
+                                if(error){
+                                  console.log(error)
+                                }else{
+                                  docs.forEach(item => {
+                                    if(item.fan === userName) {
+                                      fansCount += 1
+                                    }else{
+                                      followedCount += 1
+                                    }
+                                  })
+                                  topic.find({
+                                    author:userName
+                                  },(error,docs) => {
+                                    if(error){
+                                      console.log(error)
+                                    }else{
+                                      activeNumber = docs.length*2;
+                                      let DateMap = new Map();
+                                      totalCount.forEach(sonBehavior => {
+                                        sonBehavior.forEach(item => {
+                                          let date = item.time.split(',')[0]
+                                          if(DateMap.has(date)){
+                                            let count = DateMap.get(date);
+                                            count += 1;
+                                            DateMap.set(date,count);
+                                          }else{
+                                            DateMap.set(date,1);
+                                          }
+                                        })
+                                      });
+                                      let keys = [];
+                                      for(let key of DateMap.keys()){
+                                        keys.push(key)
+                                      }
+                                      dateCount = keys;
+                                      let totalRes = [];
+                                      for(let date = 0;date<dateCount.length;date++){
+                                        let res = DateMap.get(dateCount[date]);
+                                        totalRes.push(res);
+                                      }
+                                      console.log(totalRes)
+                                      totalCount = totalRes;
+                                      user.findOne({
+                                        userName:userName
+                                      },(error,docs) => {
+                                        if(error){
+                                          console.log(error)
+                                        }else{
+                                          let FocusList = docs.userFocusList.length;
+                                          console.log(FocusList);
+                                          res.json({
+                                            allData:{
+                                              totalCount:totalCount,
+                                              ideData:ideData,
+                                              behaviorData:behaviorData,
+                                              fansCount:fansCount,
+                                              followedCount:followedCount,
+                                              dateCount:dateCount,
+                                              activeNumber:activeNumber,
+                                              groupMember:groupMember,
+                                              focusData:[fansCount,followedCount,FocusList]
+                                            }
+                                          })
+                                        }
+                                      })
+                                    }
+                                  })
+                                }
+                              })
+                            }
+                          })
+                        }
+                      })
+                    }
+                  })
+                }
+              })
+            }
+          })
+        }
+      })
+    }
+  })
+})
 
 router.get('/getcommand',(req,res) => {
   console.log("okkk");
