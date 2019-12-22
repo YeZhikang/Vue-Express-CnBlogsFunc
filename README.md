@@ -27,11 +27,11 @@
 
 ## 项目展示
    部分功能展示（图）
-   ![改过的项目主页](https://github.com/YeZhikang/Vue-Express-CnBlogsFunc/blob/master/src/assets/index.png)
-   ![用户个人博客页](https://github.com/YeZhikang/Vue-Express-CnBlogsFunc/blob/master/src/assets/userBlog.png)
-   ![用户个人行为情况](https://github.com/YeZhikang/Vue-Express-CnBlogsFunc/blob/master/src/assets/userEcharts.png)
-   ![用户个人信息界面及广场](https://github.com/YeZhikang/Vue-Express-CnBlogsFunc/blob/master/src/assets/userInfo.png)
-   ![用户个人选项卡](https://github.com/YeZhikang/Vue-Express-CnBlogsFunc/blob/master/src/assets/userCard.png)
+   !["新版主页"](https://github.com/YeZhikang/Vue-Express-CnBlogsFunc/blob/master/src/assets/index.png)
+   !["用户个人博客页"](https://github.com/YeZhikang/Vue-Express-CnBlogsFunc/blob/master/src/assets/userBlog.png)
+   !["用户个人行为情况"](https://github.com/YeZhikang/Vue-Express-CnBlogsFunc/blob/master/src/assets/userEcharts.png)
+   !["用户个人信息界面及广场"](https://github.com/YeZhikang/Vue-Express-CnBlogsFunc/blob/master/src/assets/userInfo.png)
+   !["用户个人选项卡"](https://github.com/YeZhikang/Vue-Express-CnBlogsFunc/blob/master/src/assets/userCard.png)
 ## Build Setup
 
 ``` bash
