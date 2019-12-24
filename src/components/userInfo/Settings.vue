@@ -97,7 +97,6 @@
         mounted(){
           this.$axios.get('/user/getUserInfo').then(res => {
               this.user = res.data.user;
-              console.log(this.user);
               this.headers.smail = this.user.userName;
               this.imgDataUrl = "http://139.155.76.66:3000/"+this.user.userName+"_images.png";
           })

@@ -28,14 +28,10 @@
             }
         },
         created(){
-            this.$router.push(0);
-            console.log('ol');
             const id = this.$route.params.title;
             this.$axios.post('/blogs/gethtml',{msg:id}).then(res => {
                 let Blog = res.data.msg[0];
-                console.log(Blog);
                 this.blog = Blog;
-                console.log(this.blog)
                 this.theme = Blog.title;
                 this.html = Blog.html;
             }).catch(err => {
@@ -56,7 +52,7 @@
         },
         methods:{
             goback(){
-                this.$router.push('/log/blog/'+this.$route.params.user);
+                this.$router.push('/user/'+this.$route.params.user+'/p');
                 this.theme = this.$route.path.split('/')[this.$route.path.split('/').length-1]
             },
             focus(){
@@ -79,7 +75,6 @@
                 handler:function (val) {
                     this.$router.go(0);
                     this.theme = val.path.split('/')[val.path.split('/').length-1];
-                    console.log(this.theme)
                 }
             }
         }

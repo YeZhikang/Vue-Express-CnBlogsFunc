@@ -31,7 +31,6 @@
         mounted() {
             this.$axios.post('/user/getHCdetail',{id:this.HCid}).then(res => {
                 this.hc = res.data.hc;
-                console.log(this.hc)
             }).catch(error => {
                 console.log(error)
             })

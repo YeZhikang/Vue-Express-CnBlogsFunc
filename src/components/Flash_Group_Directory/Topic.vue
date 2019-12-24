@@ -62,7 +62,6 @@
                 const topicId = this.$route.params.id;
                 this.$axios.post('/user/topicdetail',{topicId:topicId}).then(res => {
                     this.topic = res.data.data;
-                    console.log(this.topic)
                 }).catch(error => {
                     console.log(error)
                 })
@@ -83,7 +82,6 @@
                 this.$axios.post('/user/topiccomentinfo',{id:this.$route.params.id}).then(res => {
                     if(res.data.code == 200) {
                         this.comments = res.data.data;
-                        console.log(this.comments);
                     }
                 }).catch( err => {
                     console.log(err)
@@ -93,7 +91,6 @@
                 this.$axios.post('/user/getcommandtopics',{name:this.$route.params.id}).then(res => {
                     if(res.data.code == 200) {
                         this.commandTopics = res.data.data;
-                        console.log(this.commandTopics);
                     }
                 }).catch( err => {
                     console.log(err)

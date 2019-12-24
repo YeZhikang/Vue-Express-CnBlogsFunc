@@ -98,7 +98,6 @@
                 let Question = this.Question;
                 Question.tags = this.dynamicTags;
                 Question.author = this.userName;
-                console.log(Question)
                 this.$axios.post('/user/question',{data:Question}).then( res => {
                     if(res.data.code == 200){
                         setTimeout(this.$notify({

@@ -341,11 +341,13 @@ router.post('/relationdeal',jsonParser,(req,res) => {
   处理关系
  */
 router.post('/getrelation',jsonParser,(req,res)=>{
-  console.log('getrelation')
+  console.log('getrelation');
+  let userName = req.body.userName == null ? req.cookies.userName : req.body.userName;
+  console.log(userName)
   const theme = req.body.theme;
   if(theme === "我关注的人"){
     relation.find({
-      fan:req.cookies.userName
+      fan:userName
     },(error, docs) => {
       if(error){
         console.log(err)
@@ -361,7 +363,7 @@ router.post('/getrelation',jsonParser,(req,res)=>{
     })
   }else if(theme === "我的粉丝"){
     relation.find({
-      followed:req.cookies.userName
+      followed:userName
     },(error, docs) => {
       if(error){
         console.log(err)
@@ -641,7 +643,7 @@ router.post('/sendcomment',jsonParser,(req,res) => {
 router.post('/isfocus',jsonParser,(req,res) => {
   let main = req.body.main;
   console.log(main.URL);
-  let userName = req.cookies.userName;
+  let userName = req.cookies.userName
   user.findOne({
     userName:userName
   },(error,docs) => {
@@ -810,9 +812,15 @@ router.post('/login',jsonParser,function (req,res) {
 router.post('/getactive',jsonParser,(req,res) => {
   const theme = req.body.msg;
   let actives = [];
+  let author;
+  if(req.body.userName != null) {
+    author = req.body.userName
+  }else{
+    author = req.cookies.userName
+  }
   if(theme === "我的"){
       blog.find({
-      author:req.cookies.userName
+      author:author
     },(error, docs) => {
       if(error){
         console.log(error)
@@ -839,8 +847,9 @@ router.post('/getactive',jsonParser,(req,res) => {
                     console.log(error)
                   }else{
                     actives.push(...docs);
+                    console.log(actives);
                     res.json({
-                      actives:actives.slice(actives.length-10,actives.length).reverse(),
+                      active:actives.slice(-10).reverse(),
                       code:200
                     })
                   }
@@ -1116,6 +1125,81 @@ router.post('/getcommandtopics',jsonParser,(req,res)=>{
     })
   })
 });
+
+router.post('/adminDelete',jsonParser,(req,res) => {
+    let data = req.body.data;
+    /*
+    判断 data 类型
+     */
+    if(data.commentNum != null){
+      blog.remove({
+        URL:data.URL
+      },(error,docs) => {
+        if(error){
+          console.log(error)
+        }else{
+          res.json({
+            code:200,
+            msg:"ok"
+          })
+        }
+      })
+    }else if(data.isQuestion != null && data.isBlog != null){
+      let URL = data.questionId ? data.questionId : data.blogId;
+      comment.remove({
+        URL: URL
+      },(error,docs) => {
+        if(error){
+          console.log(error)
+        }else{
+          res.json({
+            code:200,
+            msg:"ok"
+          })
+        }
+      })
+    }else if(data.answerNumber != null){
+      question.remove({
+        URL:data.URL
+      },(error,docs) => {
+        if(error){
+          console.log(error)
+        }else {
+          res.json({
+            code: 200,
+            msg: "ok"
+          })
+        }
+      })
+    }else if(data.topicId != null){
+      topic.remove({
+        topicId: data.topicId
+      },(error,docs) => {
+        if(error){
+          console.log(error)
+        }else {
+          res.json({
+            code: 200,
+            msg: "ok"
+          })
+        }
+      })
+    }else if(data.applaud != null){
+      mind.remove({
+        time:data.time,
+        author:data.author
+      },(error,docs) => {
+        if(error){
+          console.log(error)
+        }else {
+          res.json({
+            code: 200,
+            msg: "ok"
+          })
+        }
+      })
+    }
+})
 
 router.get('/isAdmin',jsonParser,(req,res) => {
   let userName = req.cookies.userName;
@@ -1573,10 +1657,12 @@ router.get('/getHistoryData',jsonParser,(req,res) => {
                                 if(error){
                                   console.log(error)
                                 }else{
+                                  console.log(docs)
                                   docs.forEach(item => {
                                     if(item.fan === userName) {
                                       fansCount += 1
-                                    }else{
+                                    }
+                                    if(item.followed === userName){
                                       followedCount += 1
                                     }
                                   })
@@ -1653,6 +1739,29 @@ router.get('/getHistoryData',jsonParser,(req,res) => {
       })
     }
   })
+});
+
+router.post('/setAdmin',jsonParser,(req,res)=>{
+    let user = req.body.user;
+    let newAdmin = new admin({
+      userName:user.userName,
+      time:getTime(),
+      from:req.cookies.userName
+    })
+    newAdmin.save((error,docs) => {
+      if(error){
+        console.log(error);
+        res.json({
+          code:500,
+          msg:"error"
+        })
+      }else{
+        res.json({
+          code:200,
+          msg:"success"
+        })
+      }
+    })
 })
 
 router.get('/getcommand',(req,res) => {

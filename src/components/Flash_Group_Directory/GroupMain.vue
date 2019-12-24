@@ -51,7 +51,6 @@
                 this.$axios.post('/user/gettopic').then(res => {
                     if( res.data.code === 200){
                         this.totalData = res.data.totalData;
-                        console.log(this.totalData)
                     }
                 }).catch( error => {
                     console.log(error)

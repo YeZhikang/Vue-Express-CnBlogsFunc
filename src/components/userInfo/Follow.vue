@@ -39,13 +39,11 @@
                         for(let i = 0;i<res.data.data.length;i++){
                             this.users.push(res.data.data[i].followed)
                         }
-                        console.log(this.users);
                     }else if(theme === "我的粉丝") {
                         this.users = [];
                         for(let i = 0;i<res.data.data.length;i++){
                             this.users.push(res.data.data[i].fan)
                         }
-                        console.log(this.users);
                     }
                 }).catch(error => {
                     console.log(error)

@@ -67,7 +67,6 @@
                     $route:{
                         handler:function (val) {
                             this.theme = val.path.split('/')[val.path.split('/').length-1];
-                            console.log(this.theme)
                         }
                     }
                 }
@@ -114,7 +113,6 @@
                     theme:document.getElementById('theme').value,
                     text:this.editor.txt.text()
                 }).then(res => {
-                    console.log(res);
                     alert("发表成功！")
                     this.$router.push('/');
                 }).catch( error => {

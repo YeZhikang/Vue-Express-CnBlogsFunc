@@ -55,7 +55,6 @@
             this.$axios.post('/user/questioninfo',{id:this.questionId}).then(res => {
                 if(res.data.code == 200) {
                     this.question = res.data.data;
-                    console.log(this.question);
                 }
             }).catch( err => {
                 console.log(err)
@@ -65,13 +64,11 @@
                         URL:'/questions/'+this.questionId
                     }}).then(res => {
                     this.unfocus = !res.data.isFocus;
-                    console.log(res.data.isFocus);
                 })
             })
             this.$axios.post('/user/commentinfo',{id:this.questionId}).then(res => {
                 if(res.data.code == 200) {
                     this.comments = res.data.data;
-                    console.log(this.comments);
                 }
             }).catch( err => {
                 console.log(err)
@@ -100,7 +97,6 @@
                         URL:'/questions/'+this.questionId
                     }
                 }).then(res => {
-                    console.log(res)
                 }).catch(error => {
                     console.log(error)
                 })

@@ -54,7 +54,6 @@
             $route:{
                 handler:function (val) {
                     this.activeName = val.params.theme
-                    console.log(this.activeName);
                 }
             }
         },

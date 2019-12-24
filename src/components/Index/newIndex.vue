@@ -1,12 +1,13 @@
 <template>
-  <div style="background-color: #26334c;height: 100%;width: 100%;padding-bottom: 40px">
+  <div style="background-color: #26334c;height: 100%;width: 100%;position:fixed;padding-bottom: 40px">
     <el-row>
       <el-col :span="22" :offset="1" style="padding-top: 40px">
-        <div style="float: right;border: 1px dashed white;border-radius: 3px;margin-right: 5px;padding:5px 0px">
+        <div style="float: right;border: 1px dashed white;border-radius: 3px;margin-right: 5px;padding:5px 0;font-size: 13px">
           <router-link to="/fgd/小组/最新话题" style="padding-right: 20px;padding-left: 20px">小组</router-link>
           <router-link to="/fgd/招聘/职位信息" style="padding-right: 20px">招聘</router-link>
           <router-link to="/fgd/收藏" style="padding-right: 20px">收藏</router-link>
           <router-link to="/fgd/找找看" style="padding-right: 20px">找找看</router-link>
+          <router-link to="/admin" style="padding-right: 20px">管理员</router-link>
         </div>
         <h1 v-if="userName">Hello , <a @click="drawer = true"><span style="font-size: 28px" @click="">{{userName}}</span></a></h1>
         <h1 v-if="!userName">Hello , <router-link to="/log/login">请登录</router-link></h1>
@@ -187,16 +188,12 @@
                 let theme = this.activeName;
                 this.$axios.post('/blogs/getBlog',{msg:theme,page:this.currentPage}).then(res => {
                     let data = res.data.msg;
-                    console.log(res.data)
-                    console.log(data);
                     this.blogs = data;
                     this.length = res.data.totalData;
-                    console.log(this.length);
                     this.$nextTick(() => {
                         loadingInstance.close();
                     });
                 }).catch(error => {
-                    console.log(error)
                 })
             },
             handleCurrentChange(val) {
@@ -204,7 +201,6 @@
                 this.$axios.post('/blogs/getBlog',{msg:this.activeName,page:this.currentPage}).then(res => {
                     let data = res.data.msg;
                     this.blogs = data;
-                    console.log(this.blogs)
                 }).catch(error => {
                     console.log(error)
                 })
@@ -216,7 +212,6 @@
                         this.questions.forEach(item => {
                             item.focusOn = true
                         });
-                        console.log(this.questions)
                     }else{
 
                     }
@@ -225,7 +220,6 @@
                 })
             },
             logout(){
-                console.log("ok");
                 this.$axios.get('/user/pop').then(res => {
                     if(res.data.msg == "succeed"){
                         this.userName = "";
@@ -320,6 +314,9 @@
   a:active{
     color: #c7c7c7;
 
+  }
+  a{
+    text-decoration: none;
   }
   >>>.rtl{
   }

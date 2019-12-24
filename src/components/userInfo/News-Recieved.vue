@@ -73,10 +73,8 @@
         },
         created(){
             let path = this.$route.path.split('/');
-            console.log(path);
             let theme = path[path.length-1];
             this.activeName = theme;
-            console.log(this.activeName);
         },
         methods: {
             handleClick(row) {
@@ -86,7 +84,7 @@
                 this.from = row.from;
                 this.to = row.to;
                 this.$axios.post('user/readnews',{msg:row.newId}).catch( res => {
-                    console.log(res)
+
                 }).catch( error => {
                     console.log(error)
                 })

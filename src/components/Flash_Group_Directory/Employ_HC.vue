@@ -119,7 +119,6 @@
         methods:{
             submitHC(){
                 this.$axios.post('/user/postoffer',{hcForm:this.hcForm}).then(res => {
-                    console.log(res)
                 }).catch(error => {
                     console.log(error)
                 })

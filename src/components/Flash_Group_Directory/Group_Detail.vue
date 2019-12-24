@@ -57,8 +57,7 @@
                 this.groupDetail = res.data.group;
                 this.groupDetail.groupNumber = this.groupDetail.member.length;
                 this.isAdmin = res.data.isAdmin;
-                console.log(this.isAdmin)
-                console.log(this.groupDetail)
+
             }).catch(error => {
                 console.log(error);
             })

@@ -30,7 +30,6 @@
         },
         mounted() {
             const group = this.$route.params.id;
-            console.log(group);
             this.$axios.post('/user/getgroupdetail',{group:group}).then(res =>{
                 this.members = res.data.group.member;
             }).catch(error => {

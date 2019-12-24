@@ -34,7 +34,6 @@
             const val = this.$route;
             const theme = val.params.theme;
             this.$axios.post('/user/getactive',{msg:theme}).then(res => {
-                console.log(res.data.active);
                 this.actives = res.data.active
             }).catch(err => {
                 console.log(err)
@@ -45,7 +44,6 @@
                 handler:function (val) {
                     const theme = val.params.theme;
                     this.$axios.post('/user/getactive',{msg:theme}).then(res => {
-                        console.log(res.data.active);
                         this.actives = res.data.active
                     }).catch(err => {
                         console.log(err)

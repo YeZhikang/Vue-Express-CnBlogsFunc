@@ -30,7 +30,6 @@
         mounted() {
             this.$axios.post('/user/getJDdetail',{id:this.JDid}).then(res => {
                 this.jd = res.data.jd;
-                console.log(res.data.jd);
             }).catch(error => {
                 console.log(error)
             })

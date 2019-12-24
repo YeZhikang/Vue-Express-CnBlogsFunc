@@ -97,7 +97,6 @@
         },
         mounted() {
           this.$axios.get('/user/getcommand').then(res => {
-              console.log(res);
               if(res.data.code === 200) {
                   this.editorLikeBlog = res.data.blogs[0]
                   this.mostLikesBlog = res.data.blog[1]

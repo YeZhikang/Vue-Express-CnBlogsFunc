@@ -121,8 +121,7 @@
                 this.$axios.post('/blogs/getBlog',{msg:this.activeName,page:this.currentPage}).then(res => {
                     let data = res.data.msg;
                     this.blogs = data;
-                    console.log(this.blogs)
-                    console.log(this.length);
+
                 }).catch(error => {
                     console.log(error)
                 })
@@ -133,10 +132,8 @@
            this.activeName = theme;
            this.$axios.post('/blogs/getBlog',{msg:theme,page:this.currentPage}).then(res => {
                 let data = res.data.msg;
-                console.log(data);
                 this.blogs = data;
                 this.length = res.data.totalData;
-                console.log(this.length);
                 // for(var i = 0;i<data.length;i++){
                 //   let blog = {
                 //       likeNum:data[i].diggnum,
@@ -156,7 +153,7 @@
         mounted(){
             this.$router.push(0);
             this.$axios.get('/user/getcommand').then(res => {
-                console.log(res);
+                  ;
                 if(res.data.code === 200) {
                     this.editorLikeBlog = res.data.blogs[0]
                     this.mostLikesBlog = res.data.blogs[1]
@@ -178,10 +175,8 @@
                     console.log(val);
                     this.$axios.post('/blogs/getBlog',{msg:val,page:this.currentPage}).then(res => {
                         let data = res.data.msg;
-                        console.log(data);
                         this.blogs = data;
                         this.length = res.data.totalData;
-                        console.log(this.length);
                         // for(var i = 0;i<data.length;i++){
                         //   let blog = {
                         //       likeNum:data[i].diggnum,

@@ -46,7 +46,6 @@
         mounted() {
             this.$axios.post('/user/getgroup',{theme:'我的'}).then(res => {
                 this.groups = res.data.groups;
-                console.log(this.groups)
             }).catch(error => {
                 console.log(error)
             })

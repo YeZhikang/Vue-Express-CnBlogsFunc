@@ -52,10 +52,8 @@
                     this.directories.forEach((item) => {
                         if(item.text.text.includes(val) || item.text.title.includes(val)){
                             rcommands.push(item);
-                            console.log(item);
                         }
                     });
-                    console.log(rcommands);
                     this.commands = rcommands;
                 }
             }

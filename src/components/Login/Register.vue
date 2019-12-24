@@ -75,7 +75,6 @@
                     }
                 },1000);
                 this.$axios.post('/user/checkEmail',{data:this.registerForm.email}).then( res => {
-                    console.log(res);
                 }).catch(error => {
                     console.log(error)
                 })
@@ -86,7 +85,6 @@
                         alert("注册成功");
                         this.$router.push("login");
                     }else{
-                        console.log(res.data);
                     }
                 } ).catch(error => {
                     console.log(error)

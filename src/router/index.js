@@ -1,72 +1,101 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import BlogPart from "../components/Index/BlogPart";
-import Nav from '@/components/Index/Nav'
-import fgdNav from '@/components/Flash_Group_Directory/Nav'
-import Sidebar from "../components/Index/Sidebar";
-import Net from "../components/Net";
-import LogReg from "../components/Login/LogReg";
-import Login from "../components/Login/Login";
-import Register from "../components/Login/Register";
-import person from "../components/person";
-import Garden from "../components/userInfo/Garden";
-import Active from "../components/userInfo/Active";
-import Focus from "../components/userInfo/Focus";
-import Follow from "../components/userInfo/Follow";
-import News from "../components/userInfo/News";
-import NewsRecieved from '../components/userInfo/News-Recieved'
-import MyBlog from "../components/Blog/MyBlog";
-import Question from "../components/userInfo/Question";
-import QustionHolding from "../components/userInfo/QustionHolding";
-import newBlogPart from "../components/Index/newBlogPart";
-import Report from "../components/userInfo/Report";
-import show from "../components/Index/show";
-import Post from "../components/userInfo/Post";
-import MyBlogMainPart from "../components/Blog/MyBlogMainPart";
-import WriteNews from "../components/userInfo/WriteNews";
-import WriteBlog from "../components/Blog/WriteBlog";
-import BlogShow from "../components/Blog/BlogShow";
-import Theme from "../components/Index/Theme";
-import Settings from "../components/userInfo/Settings";
-import writeQuestion from "../components/userInfo/writeQuestion";
-import Questions from "../components/userInfo/Questions";
-import Flash_Main from "../components/Flash_Group_Directory/Flash_Main";
-import Group_Main from "../components/Flash_Group_Directory/Group_Main";
-import GroupMain from "../components/Flash_Group_Directory/GroupMain";
-import Group_MyGroup from "../components/Flash_Group_Directory/Group_MyGroup";
-import Group_all from "../components/Flash_Group_Directory/Group_all";
-import Group_Detail from "../components/Flash_Group_Directory/Group_Detail";
-import Group_Set from "../components/Flash_Group_Directory/Group_Set";
-import WriteTopic from "../components/Flash_Group_Directory/WriteTopic";
-import Topic from "../components/Flash_Group_Directory/Topic";
-import Group_Gonggao from "../components/Flash_Group_Directory/Group_Gonggao";
-import Group_Topics from "../components/Flash_Group_Directory/Group_Topics";
-import Group_Member from "../components/Flash_Group_Directory/Group_Member";
-import Group_ChangeInfo from "../components/Flash_Group_Directory/Group_ChangeInfo";
-import Directory from "../components/Flash_Group_Directory/Directory";
-import Employ from "../components/Flash_Group_Directory/Employ";
-import Employ_jobs from "../components/Flash_Group_Directory/Employ_jobs";
-import Employ_jd from "../components/Flash_Group_Directory/Employ_jd";
-import Employ_HC from "../components/Flash_Group_Directory/Employ_HC";
-import Employ_JDP from "../components/Flash_Group_Directory/Employ_JDP";
-import HC from "../components/Flash_Group_Directory/Group_HCdetail";
-import JD from "../components/Flash_Group_Directory/Group_JDdetail"
-import Find from "../components/Flash_Group_Directory/Find";
-import newIndex from "../components/Index/newIndex";
-import blogIndex from "../components/Blog/blogIndex";
-import NotFound from "../components/NotFound";
-import UserActiveShow from "../components/Index/UserActiveShow";
-import AdminController from "../components/AdminController";
+
+
+const Login = () => import("../components/Login/Login");
+const LogReg = () => import("../components/Login/LogReg");
+const Sidebar = () => import("../components/Index/Sidebar");
+const fgdNav = () => import("@/components/Flash_Group_Directory/Nav");
+const Nav = () => import("@/components/Index/Nav");
+const BlogPart = () => import("../components/Index/BlogPart");
+const HelloWorld = () => import("@/components/HelloWorld");
+
+const Register = () => import("../components/Login/Register");
+const person = () => import("../components/person");
+const Garden = () => import("../components/userInfo/Garden");
+const Active = () => import("../components/userInfo/Active");
+
+
+const NewsRecieved = () => import("../components/userInfo/News-Recieved");
+const News = () => import("../components/userInfo/News");
+const Follow = () => import("../components/userInfo/Follow");
+const Focus = () => import("../components/userInfo/Focus");
+
+const newBlogPart = () => import("../components/Index/newBlogPart");
+const QustionHolding = () => import("../components/userInfo/QustionHolding");
+const Question = () => import("../components/userInfo/Question");
+const MyBlog = () => import("../components/Blog/MyBlog");
+
+
+const Report = () => import("../components/userInfo/Report");
+
+const show = () => import("../components/Index/show");
+
+const Post = () => import("../components/userInfo/Post");
+
+const MyBlogMainPart = () => import("../components/Blog/MyBlogMainPart");
+
+const Questions = () => import("../components/userInfo/Questions");
+const writeQuestion = () => import("../components/userInfo/writeQuestion");
+const Settings = () => import("../components/userInfo/Settings");
+const Theme = () => import("../components/Index/Theme");
+const BlogShow = () => import("../components/Blog/BlogShow");
+const WriteBlog = () => import("../components/Blog/WriteBlog");
+const WriteNews = () => import("../components/userInfo/WriteNews");
+
+const Group_all = () => import("../components/Flash_Group_Directory/Group_all");
+const Group_MyGroup = () => import("../components/Flash_Group_Directory/Group_MyGroup");
+const GroupMain = () => import("../components/Flash_Group_Directory/GroupMain");
+const Group_Main = () => import("../components/Flash_Group_Directory/Group_Main");
+const Flash_Main = () => import("../components/Flash_Group_Directory/Flash_Main");
+
+
+const Group_Detail = () => import("../components/Flash_Group_Directory/Group_Detail");
+
+const Group_Set = () => import("../components/Flash_Group_Directory/Group_Set");
+
+const WriteTopic = () => import("../components/Flash_Group_Directory/WriteTopic");
+
+const Topic = () => import("../components/Flash_Group_Directory/Topic");
+
+const Group_Gonggao = () => import("../components/Flash_Group_Directory/Group_Gonggao");
+
+const Group_Topics = () => import("../components/Flash_Group_Directory/Group_Topics");
+
+const Group_Member = () => import("../components/Flash_Group_Directory/Group_Member");
+
+const Group_ChangeInfo = () => import("../components/Flash_Group_Directory/Group_ChangeInfo");
+
+const Directory = () => import("../components/Flash_Group_Directory/Directory");
+
+const Employ = () => import("../components/Flash_Group_Directory/Employ");
+const Employ_jobs = () => import("../components/Flash_Group_Directory/Employ_jobs");
+const Employ_jd = () => import("../components/Flash_Group_Directory/Employ_jd");
+const Employ_HC = () => import("../components/Flash_Group_Directory/Employ_HC");
+const Employ_JDP = () => import("../components/Flash_Group_Directory/Employ_JDP");
+const HC = () => import("../components/Flash_Group_Directory/Group_HCdetail");
+const JD = () => import("../components/Flash_Group_Directory/Group_JDdetail");
+const Find = () => import("../components/Flash_Group_Directory/Find");
+const newIndex = () => import("../components/Index/newIndex");
+const blogIndex = () => import("../components/Blog/blogIndex");
+const NotFound = () => import("../components/NotFound");
+const UserActiveShow = () => import("../components/Index/UserActiveShow");
+const AdminController = () => import("../components/AdminController");
+
+const MyBlogMainPart2 = () => import("../components/Blog/MyBlogMainPart2");
+
 Vue.use(Router);
+const routerPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(error=> error)
+}
 
 const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld,
-      redirect: '/newIndex',
+      name: 'newIndex',
+      component: newIndex,
       beforeRouteUpdate(to, from, next) {
         this.$route.push(0)
       },
@@ -236,23 +265,29 @@ const router = new Router({
         },
       ]
     },
+
     {
       name: "blogs",
       component: MyBlog,
-      path: '/log/blog/:user',
-      redirect: '/log/blog/:user/主页',
+      path: '/log/blog/:user/',
       children: [
         {
-          path: '/log/blog/:user/p/:title',
+          path: 'p/:title/',
           component: BlogShow,
           name:'detailBlog'
         },
+      ],
+    },
+    {
+      name:'userBlogPage',
+      component:MyBlogMainPart2,
+      path:'/user/:user/',
+      children:[
         {
-          path: '/log/blog/:user/主页',
+          path:'p',
           component: MyBlogMainPart,
-
-        },
-
+          name:"a1"
+        }
       ]
     },
     {
@@ -388,7 +423,8 @@ const router = new Router({
     {
       path:'/admin',
       component:AdminController
-    }
+    },
+
   ]
 }
 );

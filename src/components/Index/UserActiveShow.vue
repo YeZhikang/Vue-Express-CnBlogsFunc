@@ -8,7 +8,7 @@
               <h3 class="primary">{{userName}}</h3>
               <h4 class="primary" style="margin-left: 46px">数据图表</h4>
             </el-col>
-            <el-col :span="18" style="margin-top: 120px;margin-left: 300px;display: flex;flex-wrap: wrap">
+            <el-col :span="18" :offset="5" style="margin-top: 120px;display: flex;flex-wrap: wrap">
               <div id="total" :style="{width: '500px', height: '300px'}"></div>
               <div id="theme" :style="{width: '500px', height: '300px'}"></div>
               <div id="relation" :style="{width: '1000px', height: '300px'}"></div>
@@ -59,7 +59,6 @@
         methods:{
             getHistoryData(){
               this.$axios.get('/user/getHistoryData').then(res => {
-                  console.log("ok");
                   let allData = res.data.allData;
                   this.userName = allData.userName;
                   this.totalCount = allData.totalCount;
@@ -155,7 +154,7 @@
 
                     },
                     xAxis: {
-                        data: ["收藏","粉丝","关注"]
+                        data: ["关注","粉丝","收藏"]
                     },
                     yAxis: {},
                     series: [{
@@ -169,9 +168,9 @@
                         },
                         markPoint : {
                             data : [
-                                {name : '收藏', value : this.focusData[0], xAxis: "收藏", yAxis: this.focusData[0]},
+                                {name : '收藏', value : this.focusData[0], xAxis: "关注", yAxis: this.focusData[0]},
                                 {name : '粉丝', value : this.focusData[1], xAxis: "粉丝", yAxis: this.focusData[1]},
-                                {name : '关注', value : this.focusData[2], xAxis: "关注", yAxis: this.focusData[2]},
+                                {name : '关注', value : this.focusData[2], xAxis: "收藏", yAxis: this.focusData[2]},
                             ]
                         },
                     },]

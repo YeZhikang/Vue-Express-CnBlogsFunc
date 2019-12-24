@@ -38,7 +38,6 @@
         methods:{
             sendMail(){
               this.$axios.post('/user/sendmail',{msg:this.newsForm}).then(res => {
-                  console.log(res)
                   this.$router.push('/log/user/news/发件箱');
               }).catch(error => {
                   console.log(error)

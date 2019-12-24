@@ -167,7 +167,6 @@
                         this.result = res.data.docs.userName;
                         this.haveUser = true;
                     }
-                    console.log(this.result)
                 }).catch(error => {
                     console.log(error)
                 })
@@ -176,7 +175,6 @@
         watch:{
             activeName:{
                 handler: function (val) {
-                    console.log(val);
                     this.$router.push('/log/user/garden/'+val)
 
                 }

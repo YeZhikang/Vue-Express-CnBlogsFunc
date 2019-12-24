@@ -41,7 +41,6 @@
                     }
                     this.$axios.post('/user/getfindres',{text:val}).then(
                         res => {
-                            console.log(res);
                             this.resLists = res.data.data
                         }
                     ).catch(error => {

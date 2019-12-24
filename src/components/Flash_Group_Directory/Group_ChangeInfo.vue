@@ -233,7 +233,6 @@
                     }
                     this.$axios.post('/user/searchtopic',{topicName:this.topicSearch,groupId:this.$route.params.id}).then(res => {
                         this.topics = res.data.topics;
-                        console.log(this.topics);
                         if(this.topics){
                             this.anoUser = false
                             this.ablurIt = false

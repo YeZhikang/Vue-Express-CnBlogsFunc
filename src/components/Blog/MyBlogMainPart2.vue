@@ -2,13 +2,13 @@
   <div>
     <el-row class="Title">
       <el-col :span="24" >
-          <div class="titleBox">
-            <h2>{{userName}}</h2>
-          </div>
-          <div class="titleRecord" style="float: right">
-            <button v-if="isShow" @click="focus" class="focusButton">关注他</button>
-            <button v-if="!isShow" @click="focus" class="focusButton">取消关注</button>
-          </div>
+        <div class="titleBox">
+          <h2>{{userName}}</h2>
+        </div>
+        <div class="titleRecord" style="float: right">
+          <button v-if="isShow" @click="focus" class="focusButton">关注他</button>
+          <button v-if="!isShow" @click="focus" class="focusButton">取消关注</button>
+        </div>
       </el-col>
     </el-row>
     <el-row>
@@ -57,7 +57,7 @@
 <script>
     import Calendar from "./Calendar";
     export default {
-        name: "MyBlog",
+        name: "MyBlogMainPart2",
         components: {Calendar},
         data(){
             return{
@@ -69,15 +69,15 @@
                 age:0,
                 followed:0,
                 fans:0,
-                isShow:true,
+                isShow:true
             }
         },
         created() {
-          this.userName = this.$route.params.user;
-          this.$axios.post('/user/isfocususer',{userName:this.userName}).then(res => {
-              this.isShow = !res.data.isFocus;
-              this.getRelation();
-          })
+            this.userName = this.$route.params.user;
+            this.$axios.post('/user/isfocususer',{userName:this.userName}).then(res => {
+                this.isShow = !res.data.isFocus;
+                this.getRelation();
+            })
         },
         watch:{
             $route:{
@@ -88,12 +88,11 @@
         },
         methods:{
             focus(){
-              this.$axios.post('/user/relationdeal',{way:this.isShow,to:this.userName}).then(res => {
-
-                  this.isShow = !this.isShow
-              }).catch(error => {
-                  console.log(error)
-              })
+                this.$axios.post('/user/relationdeal',{way:this.isShow,to:this.userName}).then(res => {
+                    this.isShow = !this.isShow
+                }).catch(error => {
+                    console.log(error)
+                })
             },
             getRelation(){
                 this.$axios.post("/user/getrelation",{theme:'我的粉丝',userName:this.$route.params.user}).then(res => {

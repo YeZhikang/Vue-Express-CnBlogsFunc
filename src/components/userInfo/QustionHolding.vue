@@ -35,7 +35,6 @@
                         this.questions.forEach(item => {
                             item.focusOn = true
                         });
-                        console.log(this.questions)
                     }else{
 
                     }
@@ -45,7 +44,6 @@
             },
             searchQuestion(val){
                 this.$axios.post('/user/search',{theme:'question',data:val}).then(res => {
-                    console.log(res.data.docs);
                     this.questions = res.data.docs
                 })
             }

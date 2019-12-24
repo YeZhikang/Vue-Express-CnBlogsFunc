@@ -27,7 +27,6 @@
         methods: {
             handleSelect(key, keyPath) {
                 if(key === "首页"){
-                    console.log('ok');
                     this.$router.push('/');
                     return;
                 }

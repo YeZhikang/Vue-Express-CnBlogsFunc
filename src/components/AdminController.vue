@@ -20,7 +20,7 @@
               <el-tab-pane label="用户" name="用户"></el-tab-pane>
             </el-tabs>
           </el-col>
-          <el-col :span="20" :offset="1" style="margin-left:240px">
+          <el-col :span="20" :offset="4" >
             <el-table
               v-if="isUser"
               :data="totalData"
@@ -35,7 +35,7 @@
                 fixed="right"
                 label="操作"
                 width="300">
-                <template slot-scope="scope">
+                <template slot-scope="scope" v-if="isUser">
                   <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
                   <el-button type="text" size="small">删除</el-button>
                 </template>
@@ -55,7 +55,7 @@
 
                 prop="time"
                 label="日期"
-                width="150">
+                width="250">
               </el-table-column>
 
               <el-table-column
@@ -67,9 +67,9 @@
                 fixed="right"
                 label="操作"
                 width="100">
-                <template slot-scope="scope">
-                  <el-button @click="" type="text" size="small">查看</el-button>
-                  <el-button type="text" size="small">编辑</el-button>
+                <template slot-scope="scope2" v-if="!isUser">
+                  <el-button @click="handleClick2(scope2.row)" type="text" size="small" v-if="scope2.row.commentNum != null">查看</el-button>
+                  <el-button type="text" size="small" @click="handleClickDelete(scope2.row)">删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -99,10 +99,11 @@
         center>
         <div>
           <div style="display: flex">
-            <img style="width: 100px;height: 100px;" :src="'http://139.155.76.66:3000/'+userName+'_images.png'">
+            <img style="width: 100px;height: 100px;" :src="'http://139.155.76.66:3000/'+user.userName+'_images.png'">
             <div style="margin-left: 40px">
               <h3 class="dialog" >  {{user.userName}}</h3>
               <p>邮箱：{{user.email}}  <br> 密码：{{user.password}}</p>
+              <el-button type="text" @click="setAdmin()">设置管理员</el-button>
             </div>
           </div>
         </div>
@@ -129,7 +130,7 @@
                 users:[],
                 topics:[],
                 RemainTime:5,
-                activeName:"话题",
+                activeName:"所有信息",
                 centerDialogVisible: false,
                 user:{
                     userName:'',
@@ -155,7 +156,7 @@
         methods:{
             getUserInfo(){
                 this.$axios.get('/user/isAdmin').then(res => {
-                    console.log(res);
+                      ;
                     this.isAdmin = res.data.isAdmin;
                     this.userName = res.data.userName;
                     if(this.isAdmin){
@@ -182,6 +183,34 @@
                     }, 1000);
                 }
             },
+
+            handleClickDelete(row){
+                this.$axios.post("/user/adminDelete",{data:row}).then(res => {
+                    if(res.data.code === 200){
+                        new Promise((resolve, reject) => {
+                            this.$message({
+                                message: "删除成功",
+                                type: "success"
+                            })
+                            resolve(row)
+                        }).then((res) => {
+                            for(let count = 0;count<this.totalData.length;count++){
+                                if(this.totalData[count] == row){
+                                    console.log(row);
+                                    this.totalData.splice(count,1)
+                                }
+                            }
+                        })
+                    }else{
+                        this.$message({
+                            message:"删除失败",
+                            type:"danger"
+                        })
+                    }
+                }).catch(error => {
+                    console.log(error)
+                })
+            },
             getAllActives(){
                 this.$axios.get('/user/getAllActives').then(res => {
                     console.log(res.data.allData);
@@ -196,9 +225,14 @@
                     this.changeTable()
                 })
             },
+            handleClick2(row){
+                if(row.commentNum != null){
+                    this.$router.push('/log/blog/'+row.author+'/p/'+row.URL)
+                }
+                console.log(row);
+            },
             changeTable(){
                 let theme = this.activeName;
-                this.isUser = false;
                 this.totalData = [];
                 if( theme === "所有信息" ){
                     let newComments = [];
@@ -234,17 +268,40 @@
                 }else if( theme === "话题"){
                     this.totalData = this.topics;
                 }else if( theme === "用户"){
-                    this.isUser = true;
                     this.totalData = this.users;
                 }
-                console.log(this.totalData)
-            }
+            },
+            setAdmin(){
+                this.$axios.post('/user/setAdmin',{user:this.user}).then(res => {
+                    if(res.data.code === 200) {
+                        this.$message({
+                            message:"添加成功",
+                            type:"success"
+                        })
+                    }else{
+                        this.$message({
+                            message:"添加成功",
+                            type:"danger"
+                        })
+                    }
+                }).catch(error => {
+                    this.$message({
+                        message:"添加成功",
+                        type:"danger"
+                    })
+                })
+            },
         },
         watch:{
             activeName:{
                 handler:function (val) {
                     console.log(val);
                     this.changeTable();
+                    if(val === "用户"){
+                        this.isUser = true;
+                    }else {
+                        this.isUser = false;
+                    }
                 }
             }
         }

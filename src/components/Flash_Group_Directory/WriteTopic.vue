@@ -81,7 +81,6 @@
                     theme:document.getElementById('theme').value,
                     text:this.editor.txt.text()
                 }).then(res => {
-                    console.log(res);
                     alert("发表成功！")
                     this.$router.push('/');
                 }).catch( error => {

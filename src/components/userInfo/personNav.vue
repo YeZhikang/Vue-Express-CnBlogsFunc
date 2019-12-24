@@ -3,9 +3,8 @@
     <div class="personNav">
         <ul class="personNav-ul">
           <li><router-link to="/">首页</router-link></li>
-          <li><router-link to="/news">新闻</router-link></li>
-          <li><router-link to="/find">找找看</router-link></li>
-          <li><router-link to="/academy">学习计划</router-link></li>
+          <li><router-link to="/">新闻</router-link></li>
+          <li><router-link to="/fgd/找找看">找找看</router-link></li>
         </ul>
     </div>
       <el-row style="margin-top: 10px">

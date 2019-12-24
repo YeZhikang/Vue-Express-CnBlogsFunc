@@ -59,7 +59,6 @@
         },
         methods:{
             logout(){
-                console.log("ok");
                 this.$axios.get('/user/pop').then(res => {
                     if(res.data.msg == "succeed"){
                         this.noUser = true
